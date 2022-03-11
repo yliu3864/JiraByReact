@@ -1,12 +1,10 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class ProjectListScreen extends Component {
-  render() {
-    return (
-      <div>
-        <searchPanel />
-        <List />
-      </div>
-    );
-  }
+export default function index() {
+  return (
+    <div>
+      <SearchPanel />
+      <List />
+    </div>
+  );
 }
