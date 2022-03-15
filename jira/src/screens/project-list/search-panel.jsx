@@ -1,22 +1,6 @@
 import React from "react";
 
-export default function SearchPanel() {
-  const [param, setParam] = useState({
-    name: "",
-    personId: ""
-  });
-
-  const [users, setUsers] = useState([]);
-  const [list, setList] = useState([]);
-
-  useEffect(() => {
-    fetch("").then(async response => {
-      if (response.ok) {
-        setList(await response.json());
-      }
-    });
-  }, [param]);
-
+export default function SearchPanel({ users, param, setParam }) {
   return (
     <form>
       <div>
@@ -41,7 +25,9 @@ export default function SearchPanel() {
         >
           <option value="">Owner</option>
           {users.map(user => (
-            <option value={user.id}>{users.name}</option>
+            <option value={user.id} key={user.id}>
+              {user.name}
+            </option>
           ))}
         </select>
       </div>

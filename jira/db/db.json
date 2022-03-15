@@ -1,0 +1,43 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Eric"
+    },
+    {
+      "id": 2,
+      "name": "Amy"
+    },
+    {
+      "id": 3,
+      "name": "Ray"
+    },
+    {
+      "id": 4,
+      "name": "Jason"
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "manager",
+      "personId": 1,
+      "organization": "D Department",
+      "created": 1604989757139
+    },
+    {
+      "id": 2,
+      "name": "groupon app",
+      "personId": 2,
+      "organization": "G Department",
+      "created": 1604989757139
+    },
+    {
+      "id": 3,
+      "name": "material",
+      "personId": 2,
+      "organization": "M Department",
+      "created": 1604989757139
+    }
+  ]
+}
