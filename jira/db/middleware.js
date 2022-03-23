@@ -14,5 +14,22 @@ module.exports = (req, res, next) => {
       });
     }
   }
+
+  if (req.method == "GET" && req.path == "/me") {
+    console.log(req.headers.authorization);
+    if (req.headers.authorization === "Bearer 123") {
+      return res.status(200).json({
+        user: {
+          id: 1,
+          name: "Jack",
+          token: "123"
+        }
+      });
+    } else {
+      return res.status(400).json({
+        message: "wrong token"
+      });
+    }
+  }
   next();
 };
