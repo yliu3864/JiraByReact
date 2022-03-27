@@ -3,19 +3,31 @@ import ProjectListScreen from "screens/project-list";
 import { useAuth } from "context/auth-context";
 import styled from "@emotion/styled";
 import { Row } from "components/lib";
+import softwareLogo from "assets/Jira-Software.svg";
+import { Dropdown, Menu } from "antd";
 
 export default function AuthenticatedApp() {
-  const { logout } = useAuth();
+  const { logout, user } = useAuth();
   return (
     <Container>
       <Header between={true}>
         <HeaderLeft gap={true}>
-          <h2>Logo</h2>
+          <img src={softwareLogo} />
           <h2>Project</h2>
           <h2>User</h2>
         </HeaderLeft>
         <HeaderRight>
-          <button onClick={logout}>Sign Out</button>
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item key={"logout"}>
+                  <a onClick={logout}>Sign Out</a>
+                </Menu.Item>
+              </Menu>
+            }
+          >
+            <a onClick={e => e.preventDefault()}>Hi,{user?.name}</a>
+          </Dropdown>
         </HeaderRight>
       </Header>
       {/* <Nav>nav</Nav> */}
@@ -41,6 +53,9 @@ const Container = styled.div`
 
 const Header = styled(Row)`
   grid-area: header;
+  padding: 3.2rem;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
 `;
 const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;

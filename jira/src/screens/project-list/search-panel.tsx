@@ -1,5 +1,5 @@
 import React from "react";
-import { Input, Select } from "antd";
+import { Input, Select, Form } from "antd";
 
 export interface User {
   id: string;
@@ -24,9 +24,10 @@ export default function SearchPanel({
   setParam
 }: SearchPanelProps) {
   return (
-    <form>
-      <div>
+    <Form style={{ marginBottom: "2rem" }} layout={"inline"}>
+      <Form.Item>
         <Input
+          placeholder={"project name"}
           type="text"
           value={param.name}
           onChange={evt =>
@@ -36,6 +37,8 @@ export default function SearchPanel({
             })
           }
         />
+      </Form.Item>
+      <Form.Item>
         <Select
           value={param.personId}
           onChange={value =>
@@ -52,7 +55,7 @@ export default function SearchPanel({
             </Select.Option>
           ))}
         </Select>
-      </div>
-    </form>
+      </Form.Item>
+    </Form>
   );
 }
