@@ -2,16 +2,17 @@ import React from "react";
 import ProjectListScreen from "screens/project-list";
 import { useAuth } from "context/auth-context";
 import styled from "@emotion/styled";
+import { Row } from "components/lib";
 
 export default function AuthenticatedApp() {
   const { logout } = useAuth();
   return (
     <Container>
-      <Header>
-        <HeaderLeft>
-          <h3>Logo</h3>
-          <h3>Project</h3>
-          <h3>User</h3>
+      <Header between={true}>
+        <HeaderLeft gap={true}>
+          <h2>Logo</h2>
+          <h2>Project</h2>
+          <h2>User</h2>
         </HeaderLeft>
         <HeaderRight>
           <button onClick={logout}>Sign Out</button>
@@ -38,23 +39,10 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-// const Container = styled.div`
-//   display: grid;
-//   grid-template-rows: 6rem 1fr 6rem;
-//   height: 100vh;
-// `;
-
-const Header = styled.header`
+const Header = styled(Row)`
   grid-area: header;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
 `;
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-`;
+const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;
 const Main = styled.main`
   grid-area: main;
