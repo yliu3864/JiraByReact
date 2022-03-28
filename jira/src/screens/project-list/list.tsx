@@ -56,6 +56,7 @@ export default function List({ list, users }: ListProps) {
         }
       ]}
       dataSource={list}
+      rowKey={users => users.id}
     />
   );
 }

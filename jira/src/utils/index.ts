@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
-export default function cleanObject(object: Object) {
+
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
+
+export default function cleanObject(object: { [key: string]: unknown }) {
   const result = { ...object };
   Object.keys(result).forEach(key => {
-    //@ts-ignore
     const value = result[key];
-    if (isFalsy(value)) {
-      //@ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
