@@ -2,11 +2,18 @@ import React, { FormEvent } from "react";
 import { useAuth } from "context/auth-context";
 import { Form, Input, Button } from "antd";
 import { LongButton } from ".";
+import { async } from "q";
+import { useAsync } from "utils/use-async";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function LoginScreen() {
+export default function LoginScreen({
+  onError
+}: {
+  onError: (error: Error) => void;
+}) {
   const { login, user } = useAuth();
+  const { run, isLoading } = useAsync();
 
   // const login = (param: { username: string; password: string }) => {
   //   fetch(`${apiUrl}/login`, {
@@ -22,7 +29,7 @@ export default function LoginScreen() {
   // };
 
   const handleSubmit = (values: { username: string; password: string }) => {
-    login(values);
+    run(login(values)).catch(onError);
   };
 
   return (
@@ -39,7 +46,7 @@ export default function LoginScreen() {
       >
         <Input placeholder={"Password"} type="password" id={"password"} />
       </Form.Item>
-      <LongButton type={"primary"} htmlType={"submit"}>
+      <LongButton loading={isLoading} type={"primary"} htmlType={"submit"}>
         Login
       </LongButton>
     </Form>

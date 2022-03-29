@@ -1,18 +1,26 @@
 import React, { useState } from "react";
 import RegisterScreen from "./register";
 import LoginScreen from "./login";
-import { Card, Divider, Button } from "antd";
+import { Card, Divider, Button, Typography } from "antd";
 import styled from "@emotion/styled";
 import jira from "assets/jira.svg";
 
 export default function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false);
+  const [error, setError] = useState<Error | null>(null);
   return (
     <Container>
       <Header />
       <ShadowCard>
         <Title>{isRegister ? "Please sign up" : "please login"}</Title>
-        {isRegister ? <RegisterScreen /> : <LoginScreen />}
+        {error ? (
+          <Typography.Text type={"danger"}>{error.message}</Typography.Text>
+        ) : null}
+        {isRegister ? (
+          <RegisterScreen onError={setError} />
+        ) : (
+          <LoginScreen onError={setError} />
+        )}
         <Divider />
         <a onClick={() => setIsRegister(!isRegister)}>
           switch to {isRegister ? "Login" : "SignUp"}

@@ -5,7 +5,11 @@ import { LongButton } from ".";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
-export default function RegisterScreen() {
+export default function RegisterScreen({
+  onError
+}: {
+  onError: (error: Error) => void;
+}) {
   const { register, user } = useAuth();
 
   // const login = (param: { username: string; password: string }) => {
@@ -21,8 +25,19 @@ export default function RegisterScreen() {
   //   });
   // };
 
-  const handleSubmit = (values: { username: string; password: string }) => {
-    register(values);
+  const handleSubmit = ({
+    cpassword,
+    ...values
+  }: {
+    username: string;
+    password: string;
+    cpassword: string;
+  }) => {
+    if (cpassword !== values.password) {
+      onError(new Error("please confirm passwords are same"));
+      return;
+    }
+    register(values).catch(onError);
   };
 
   return (
@@ -35,9 +50,19 @@ export default function RegisterScreen() {
       </Form.Item>
       <Form.Item
         name={"password"}
-        rules={[{ required: true, message: "please input name" }]}
+        rules={[{ required: true, message: "please input password" }]}
       >
         <Input placeholder={"Password"} type="password" id={"password"} />
+      </Form.Item>
+      <Form.Item
+        name={"cpassword"}
+        rules={[{ required: true, message: "please confrim password" }]}
+      >
+        <Input
+          placeholder={"confrim password"}
+          type="password"
+          id={"cpassword"}
+        />
       </Form.Item>
       <LongButton type={"primary"} htmlType={"submit"}>
         Register
