@@ -11,6 +11,13 @@ export default function UnauthenticatedApp() {
   return (
     <Container>
       <Header />
+      <Button
+        onClick={() => {
+          throw new Error("Click to throw an exception");
+        }}
+      >
+        Exception occur
+      </Button>
       <ShadowCard>
         <Title>{isRegister ? "Please sign up" : "please login"}</Title>
         {error ? (
