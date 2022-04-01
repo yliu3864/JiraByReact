@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import SearchPanel from "./search-panel";
 import List, { Project } from "./list";
-import cleanObject, { useMount, useDebounce } from "utils";
+import cleanObject, { useMount, useDebounce, useDocumentTitle } from "utils";
 import * as qs from "qs";
 import { useHttp } from "utils/http";
 import { useAsync } from "utils/use-async";
@@ -23,6 +23,8 @@ export default function ProjectListScreen() {
   // const { run, isLoading, error, data: list } = useAsync<Project[]>();
   const { isLoading, error, data: list } = useProjects(debouncedParam);
   const { data: users } = useUser();
+
+  useDocumentTitle("Project List", false);
 
   // useEffect(() => {
   //   run(client("projects", { data: cleanObject(debouncedParam) }));

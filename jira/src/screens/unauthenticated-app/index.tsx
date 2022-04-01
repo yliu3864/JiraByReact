@@ -4,20 +4,17 @@ import LoginScreen from "./login";
 import { Card, Divider, Button, Typography } from "antd";
 import styled from "@emotion/styled";
 import jira from "assets/jira.svg";
+import { useDocumentTitle } from "utils";
 
 export default function UnauthenticatedApp() {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+
+  useDocumentTitle("Please sign up");
+
   return (
     <Container>
       <Header />
-      <Button
-        onClick={() => {
-          throw new Error("Click to throw an exception");
-        }}
-      >
-        Exception occur
-      </Button>
       <ShadowCard>
         <Title>{isRegister ? "Please sign up" : "please login"}</Title>
         {error ? (
