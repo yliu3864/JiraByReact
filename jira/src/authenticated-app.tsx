@@ -4,10 +4,11 @@ import { useAuth } from "context/auth-context";
 import styled from "@emotion/styled";
 import { Row } from "components/lib";
 import softwareLogo from "assets/Jira-Software.svg";
-import { Dropdown, Menu } from "antd";
+import { Dropdown, Menu, Button } from "antd";
 import { Navigate, Route, Routes } from "react-router";
 import { BrowserRouter as Router } from "react-router-dom";
 import ProjectScreen from "screens/project";
+import { resetRoute } from "utils";
 
 export default function AuthenticatedApp() {
   return (
@@ -18,12 +19,14 @@ export default function AuthenticatedApp() {
         {/* <ProjectListScreen /> */}
         <Router>
           <Routes>
+            <Route path={"/"} element={<ProjectListScreen />}></Route>
             <Route path={"/projects"} element={<ProjectListScreen />}></Route>
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             ></Route>
           </Routes>
+          {/* <Navigate to={"/projects"} /> */}
         </Router>
       </Main>
       {/* <Aside>aside</Aside> */}
@@ -48,7 +51,8 @@ const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
-        <img src={softwareLogo} />
+        <img src={softwareLogo} onClick={resetRoute} />
+
         <h2>Project</h2>
         <h2>User</h2>
       </HeaderLeft>
