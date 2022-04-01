@@ -5,34 +5,26 @@ import styled from "@emotion/styled";
 import { Row } from "components/lib";
 import softwareLogo from "assets/Jira-Software.svg";
 import { Dropdown, Menu } from "antd";
+import { Navigate, Route, Routes } from "react-router";
+import { BrowserRouter as Router } from "react-router-dom";
+import ProjectScreen from "screens/project";
 
 export default function AuthenticatedApp() {
-  const { logout, user } = useAuth();
   return (
     <Container>
-      <Header between={true}>
-        <HeaderLeft gap={true}>
-          <img src={softwareLogo} />
-          <h2>Project</h2>
-          <h2>User</h2>
-        </HeaderLeft>
-        <HeaderRight>
-          <Dropdown
-            overlay={
-              <Menu>
-                <Menu.Item key={"logout"}>
-                  <a onClick={logout}>Sign Out</a>
-                </Menu.Item>
-              </Menu>
-            }
-          >
-            <a onClick={e => e.preventDefault()}>Hi,{user?.name}</a>
-          </Dropdown>
-        </HeaderRight>
-      </Header>
+      <PageHeader />
       {/* <Nav>nav</Nav> */}
       <Main>
-        <ProjectListScreen />
+        {/* <ProjectListScreen /> */}
+        <Router>
+          <Routes>
+            <Route path={"/projects"} element={<ProjectListScreen />}></Route>
+            <Route
+              path={"/projects/:projectId/*"}
+              element={<ProjectScreen />}
+            ></Route>
+          </Routes>
+        </Router>
       </Main>
       {/* <Aside>aside</Aside> */}
       {/* <Footer>footer</Footer> */}
@@ -50,6 +42,32 @@ const Container = styled.div`
     "footer footer footer";
   height: 100vh;
 `;
+
+const PageHeader = () => {
+  const { logout, user } = useAuth();
+  return (
+    <Header between={true}>
+      <HeaderLeft gap={true}>
+        <img src={softwareLogo} />
+        <h2>Project</h2>
+        <h2>User</h2>
+      </HeaderLeft>
+      <HeaderRight>
+        <Dropdown
+          overlay={
+            <Menu>
+              <Menu.Item key={"logout"}>
+                <a onClick={logout}>Sign Out</a>
+              </Menu.Item>
+            </Menu>
+          }
+        >
+          <a onClick={e => e.preventDefault()}>Hi,{user?.name}</a>
+        </Dropdown>
+      </HeaderRight>
+    </Header>
+  );
+};
 
 const Header = styled(Row)`
   grid-area: header;
