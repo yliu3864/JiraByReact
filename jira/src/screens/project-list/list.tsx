@@ -4,6 +4,8 @@ import { Table } from "antd";
 import dayjs from "dayjs";
 import { TableProps } from "antd/lib/table";
 import { Link } from "react-router-dom";
+import Pin from "components/pin";
+import { useEditProject } from "utils/project";
 
 export interface Project {
   id: string;
@@ -22,11 +24,26 @@ interface ListProps extends TableProps<Project> {
 type PropType = Omit<ListProps, "users">;
 
 export default function List({ users, ...props }: ListProps) {
+  const { mutate } = useEditProject();
+  // const pinProject = (id:number) =>(pin:boolean)=>mutate({id,pin})
   return (
     <Table
       rowKey={"id"}
       pagination={false}
       columns={[
+        {
+          title: <Pin checked={true} disabled={true} />,
+          render(value, project) {
+            return (
+              <Pin
+                checked={project.pin}
+                onCheckedChange={pin => {
+                  mutate({ id: project.id, pin });
+                }}
+              />
+            );
+          }
+        },
         {
           title: "Name",
           sorter: (a, b) => a.name.localeCompare(b.name),
