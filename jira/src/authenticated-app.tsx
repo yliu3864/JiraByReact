@@ -19,14 +19,13 @@ export default function AuthenticatedApp() {
         {/* <ProjectListScreen /> */}
         <Router>
           <Routes>
-            <Route path={"/"} element={<ProjectListScreen />}></Route>
+            <Route path="/" element={<Navigate to="/projects" replace />} />
             <Route path={"/projects"} element={<ProjectListScreen />}></Route>
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             ></Route>
           </Routes>
-          {/* <Navigate to={"/projects"} /> */}
         </Router>
       </Main>
       {/* <Aside>aside</Aside> */}

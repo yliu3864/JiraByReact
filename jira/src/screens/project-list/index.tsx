@@ -9,15 +9,17 @@ import styled from "@emotion/styled";
 import { useProjects } from "utils/project";
 import { useUser } from "utils/user";
 import { Typography } from "antd";
+import { useUrlQueryParam } from "utils/url";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export default function ProjectListScreen() {
-  const [param, setParam] = useState({
+  const [, setParam] = useState({
     name: "",
     personId: ""
   });
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
+  const [param] = useUrlQueryParam(["name", "personId"]);
   const debouncedParam = useDebounce(param, 200);
   const client = useHttp();
   // const { run, isLoading, error, data: list } = useAsync<Project[]>();
