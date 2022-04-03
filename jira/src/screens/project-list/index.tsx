@@ -13,13 +13,9 @@ import { useUrlQueryParam } from "utils/url";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export default function ProjectListScreen() {
-  const [, setParam] = useState({
-    name: "",
-    personId: ""
-  });
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
-  const [param] = useUrlQueryParam(["name", "personId"]);
+  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
   const debouncedParam = useDebounce(param, 200);
   const client = useHttp();
   // const { run, isLoading, error, data: list } = useAsync<Project[]>();
