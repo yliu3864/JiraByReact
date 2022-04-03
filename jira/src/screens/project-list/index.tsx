@@ -10,19 +10,16 @@ import { useProjects } from "utils/project";
 import { useUser } from "utils/user";
 import { Typography } from "antd";
 import { useUrlQueryParam } from "utils/url";
+import { useProjectSearchParams } from "./util";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export default function ProjectListScreen() {
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
-  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
-  const debouncedParam = useDebounce(param, 200);
-  const client = useHttp();
+  const [param, setParam] = useProjectSearchParams();
   // const { run, isLoading, error, data: list } = useAsync<Project[]>();
-  const { isLoading, error, data: list } = useProjects(debouncedParam);
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
   const { data: users } = useUser();
-
-  useDocumentTitle("Project List", false);
 
   // useEffect(() => {
   //   run(client("projects", { data: cleanObject(debouncedParam) }));
