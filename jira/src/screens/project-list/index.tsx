@@ -18,7 +18,9 @@ export default function ProjectListScreen() {
   // const [users, setUsers] = useState([]);
   const [param, setParam] = useProjectSearchParams();
   // const { run, isLoading, error, data: list } = useAsync<Project[]>();
-  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
+  const { isLoading, error, data: list, retry } = useProjects(
+    useDebounce(param, 200)
+  );
   const { data: users } = useUser();
 
   // useEffect(() => {
@@ -35,7 +37,12 @@ export default function ProjectListScreen() {
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
-      <List loading={isLoading} users={users || []} dataSource={list || []} />
+      <List
+        refresh={retry}
+        loading={isLoading}
+        users={users || []}
+        dataSource={list || []}
+      />
     </div>
   );
 }

@@ -19,6 +19,7 @@ export interface Project {
 interface ListProps extends TableProps<Project> {
   // list: Project[];
   users: User[];
+  refresh?: () => void;
 }
 
 type PropType = Omit<ListProps, "users">;
@@ -38,7 +39,7 @@ export default function List({ users, ...props }: ListProps) {
               <Pin
                 checked={project.pin}
                 onCheckedChange={pin => {
-                  mutate({ id: project.id, pin });
+                  mutate({ id: project.id, pin }).then(props.refresh);
                 }}
               />
             );

@@ -31,5 +31,22 @@ module.exports = (req, res, next) => {
       });
     }
   }
+
+  if (req.method == "PATCH" && req.path == "/project/1") {
+    console.log(req.headers.authorization);
+    if (true) {
+      return res.status(200).json({
+        // user: {
+        //   id: 1,
+        //   name: "Jack",
+        //   token: "123"
+        // }
+      });
+    } else {
+      return res.status(400).json({
+        message: "wrong token"
+      });
+    }
+  }
   next();
 };
