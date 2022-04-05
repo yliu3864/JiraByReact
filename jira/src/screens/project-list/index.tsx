@@ -8,12 +8,15 @@ import { useAsync } from "utils/use-async";
 import styled from "@emotion/styled";
 import { useProjects } from "utils/project";
 import { useUser } from "utils/user";
-import { Typography } from "antd";
+import { Typography, Button } from "antd";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectSearchParams } from "./util";
+import { Row } from "components/lib";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-export default function ProjectListScreen() {
+export default function ProjectListScreen(props: {
+  projectButton: JSX.Element;
+}) {
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
   const [param, setParam] = useProjectSearchParams();
@@ -32,12 +35,20 @@ export default function ProjectListScreen() {
   // });
   return (
     <div>
-      <h1>Project List</h1>
+      <Row between={true}>
+        <h1>Project List</h1>
+        {/* <Button onClick={() => props.setProjectModalOpen(true)}>
+          Create new project
+        </Button> */}
+        {props.projectButton}
+      </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
       <List
+        // setProjectModalOpen={props.setProjectModalOpen}
+        projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         users={users || []}

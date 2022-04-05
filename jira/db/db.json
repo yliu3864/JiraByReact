@@ -22,6 +22,7 @@
       "id": 1,
       "name": "manager",
       "personId": 1,
+      "pin": 1,
       "organization": "D Department",
       "created": 1604989757139
     },
@@ -29,6 +30,7 @@
       "id": 2,
       "name": "groupon app",
       "personId": 2,
+      "pin": 1,
       "organization": "G Department",
       "created": 1604989757139
     },
@@ -36,6 +38,7 @@
       "id": 3,
       "name": "material",
       "personId": 2,
+      "pin": 0,
       "organization": "M Department",
       "created": 1604989757139
     }
