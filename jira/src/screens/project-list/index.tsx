@@ -12,6 +12,8 @@ import { Typography, Button } from "antd";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectSearchParams } from "./util";
 import { Row } from "components/lib";
+import { useDispatch } from "react-redux";
+import { projectListActions } from "./project-list.slice";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 export default function ProjectListScreen(props: {
@@ -25,6 +27,7 @@ export default function ProjectListScreen(props: {
     useDebounce(param, 200)
   );
   const { data: users } = useUser();
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   run(client("projects", { data: cleanObject(debouncedParam) }));
@@ -37,10 +40,10 @@ export default function ProjectListScreen(props: {
     <div>
       <Row between={true}>
         <h1>Project List</h1>
-        {/* <Button onClick={() => props.setProjectModalOpen(true)}>
+        <Button onClick={() => dispatch(projectListActions.openProjectModal())}>
           Create new project
-        </Button> */}
-        {props.projectButton}
+        </Button>
+        {/* {props.projectButton} */}
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
