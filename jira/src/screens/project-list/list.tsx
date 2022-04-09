@@ -22,7 +22,7 @@ interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
   // setProjectModalOpen: (isOpen: boolean) => void;
-  projectButton: JSX.Element;
+  // projectButton: JSX.Element;
 }
 
 type PropType = Omit<ListProps, "users">;
@@ -96,7 +96,6 @@ export default function List({ users, ...props }: ListProps) {
                       >
                         Edit
                       </ButtonNoPadding> */}
-                      {props.projectButton}
                     </Menu.Item>
                   </Menu>
                 }

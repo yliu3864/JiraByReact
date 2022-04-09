@@ -10,13 +10,11 @@ import { useProjects } from "utils/project";
 import { useUser } from "utils/user";
 import { Typography, Button } from "antd";
 import { useUrlQueryParam } from "utils/url";
-import { useProjectSearchParams } from "./util";
+import { useProjectSearchParams, useProjectModal } from "./util";
 import { Row } from "components/lib";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-export default function ProjectListScreen(props: {
-  projectButton: JSX.Element;
-}) {
+export default function ProjectListScreen() {
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
   const [param, setParam] = useProjectSearchParams();
@@ -25,6 +23,8 @@ export default function ProjectListScreen(props: {
     useDebounce(param, 200)
   );
   const { data: users } = useUser();
+
+  const { open } = useProjectModal();
 
   // useEffect(() => {
   //   run(client("projects", { data: cleanObject(debouncedParam) }));
@@ -37,18 +37,13 @@ export default function ProjectListScreen(props: {
     <div>
       <Row between={true}>
         <h1>Project List</h1>
-        {/* <Button onClick={() => props.setProjectModalOpen(true)}>
-          Create new project
-        </Button> */}
-        {props.projectButton}
+        <Button onClick={open}>Create new project</Button>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
       <List
-        // setProjectModalOpen={props.setProjectModalOpen}
-        projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         users={users || []}

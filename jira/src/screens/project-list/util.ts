@@ -14,3 +14,16 @@ export const useProjectSearchParams = () => {
     setParam
   ] as const;
 };
+
+export const useProjectModal = () => {
+  const [{ projectCreate }, setProjectModalCreate] = useUrlQueryParam([
+    "projectCreate"
+  ]);
+  const open = () => setProjectModalCreate({ projectCreate: true });
+  const close = () => setProjectModalCreate({ projectCreate: undefined });
+  return {
+    projectModalOpen: projectCreate === "true",
+    open,
+    close
+  };
+};

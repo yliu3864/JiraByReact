@@ -13,54 +13,31 @@ import ProjectModal from "screens/project-list/project-modal";
 import ProjectPopover from "components/project-popover";
 
 export default function AuthenticatedApp() {
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
+  // const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
-      <PageHeader
-        projectButton={
-          <ButtonNoPadding
-            onClick={() => setProjectModalOpen(true)}
-            type={"link"}
-          >
-            Create new project
-          </ButtonNoPadding>
-        }
+      <Router>
+        <PageHeader
+
         // setProjectModalOpen={setProjectModalOpen}
-      />
-      {/* <Nav>nav</Nav> */}
-      <Main>
-        {/* <ProjectListScreen /> */}
-        <Router>
+        />
+        {/* <Nav>nav</Nav> */}
+        <Main>
+          {/* <ProjectListScreen /> */}
+
           <Routes>
             <Route path="/" element={<Navigate to="/projects" replace />} />
-            <Route
-              path={"/projects"}
-              element={
-                <ProjectListScreen
-                  projectButton={
-                    <ButtonNoPadding
-                      onClick={() => setProjectModalOpen(true)}
-                      type={"link"}
-                    >
-                      Create new project
-                    </ButtonNoPadding>
-                  }
-                />
-              }
-            ></Route>
+            <Route path={"/projects"} element={<ProjectListScreen />}></Route>
             <Route
               path={"/projects/:projectId/*"}
               element={<ProjectScreen />}
             ></Route>
           </Routes>
-        </Router>
-      </Main>
-      {/* <Aside>aside</Aside> */}
-      {/* <Footer>footer</Footer> */}
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        onClose={() => setProjectModalOpen(false)}
-      />
+        </Main>
+        {/* <Aside>aside</Aside> */}
+        {/* <Footer>footer</Footer> */}
+        <ProjectModal />
+      </Router>
     </Container>
   );
 }
@@ -76,16 +53,13 @@ const Container = styled.div`
   height: 100vh;
 `;
 
-const PageHeader = (props: {
-  // setProjectModalOpen: (isOpen: boolean) => void;
-  projectButton: JSX.Element;
-}) => {
+const PageHeader = () => {
   const { logout, user } = useAuth();
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
         <img src={softwareLogo} onClick={resetRoute} />
-        <ProjectPopover {...props} />
+        <ProjectPopover />
         <span>User</span>
       </HeaderLeft>
       <HeaderRight>
