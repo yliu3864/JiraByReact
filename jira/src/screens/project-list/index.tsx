@@ -16,9 +16,7 @@ import { useDispatch } from "react-redux";
 import { projectListActions } from "./project-list.slice";
 
 const apiUrl = process.env.REACT_APP_API_URL;
-export default function ProjectListScreen(props: {
-  projectButton: JSX.Element;
-}) {
+export default function ProjectListScreen() {
   // const [list, setList] = useState([]);
   // const [users, setUsers] = useState([]);
   const [param, setParam] = useProjectSearchParams();
@@ -51,7 +49,7 @@ export default function ProjectListScreen(props: {
       ) : null}
       <List
         // setProjectModalOpen={props.setProjectModalOpen}
-        projectButton={props.projectButton}
+        // projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         users={users || []}

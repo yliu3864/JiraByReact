@@ -4,6 +4,7 @@ import { Form, Input, Button } from "antd";
 import { LongButton } from ".";
 import { async } from "q";
 import { useAsync } from "utils/use-async";
+import { useDispatch } from "react-redux";
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -14,6 +15,7 @@ export default function LoginScreen({
 }) {
   const { login, user } = useAuth();
   const { run, isLoading } = useAsync();
+  const dispatch = useDispatch();
 
   // const login = (param: { username: string; password: string }) => {
   //   fetch(`${apiUrl}/login`, {

@@ -24,7 +24,7 @@ interface ListProps extends TableProps<Project> {
   users: User[];
   refresh?: () => void;
   // setProjectModalOpen: (isOpen: boolean) => void;
-  projectButton: JSX.Element;
+  // projectButton: JSX.Element;
 }
 
 type PropType = Omit<ListProps, "users">;

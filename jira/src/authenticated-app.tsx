@@ -39,18 +39,18 @@ export default function AuthenticatedApp() {
             <Route path="/" element={<Navigate to="/projects" replace />} />
             <Route
               path={"/projects"}
-              // element={
-              //   <ProjectListScreen
-              //     projectButton={
-              //       <ButtonNoPadding
-              //         onClick={() => setProjectModalOpen(true)}
-              //         type={"link"}
-              //       >
-              //         Create new project
-              //       </ButtonNoPadding>
-              //     }
-              //   />
-              // }
+              element={
+                <ProjectListScreen
+                // projectButton={
+                //   <ButtonNoPadding
+                //     onClick={() => setProjectModalOpen(true)}
+                //     type={"link"}
+                //   >
+                //     Create new project
+                //   </ButtonNoPadding>
+                // }
+                />
+              }
             ></Route>
             <Route
               path={"/projects/:projectId/*"}
