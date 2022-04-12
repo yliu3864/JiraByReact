@@ -4,7 +4,13 @@ import { Project } from "screens/project-list/list";
 import cleanObject from "utils";
 import { useHttp } from "./http";
 import { useSearchParams } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "react-query";
+import { useQuery, useMutation, useQueryClient, QueryKey } from "react-query";
+import { useProjectSearchParams } from "screens/project-list/util";
+import {
+  useEditConfig,
+  useAddConfig,
+  useDeleteConfig
+} from "./use-optimistic-options";
 export const useProjects = (param?: Partial<Project>) => {
   const client = useHttp();
 
@@ -13,18 +19,20 @@ export const useProjects = (param?: Partial<Project>) => {
   );
 };
 
-export const useEditProject = () => {
+export const useEditProject = (queryKey: QueryKey) => {
   const client = useHttp();
   const queryClient = useQueryClient();
+
   return useMutation(
     (params: Partial<Project>) =>
       client(`projects/${params.id}`, {
         method: "PATCH",
         data: params
       }),
-    {
-      onSuccess: () => queryClient.invalidateQueries("projects")
-    }
+    useEditConfig(queryKey)
+    // {
+    // onSuccess: () => queryClient.invalidateQueries("projects")
+    // }
   );
   // const { run, ...asyncResult } = useAsync();
   // const mutate = (params: Partial<Project>) => {
@@ -41,7 +49,7 @@ export const useEditProject = () => {
   // };
 };
 
-export const useAddProject = () => {
+export const useAddProject = (queryKey: QueryKey) => {
   const client = useHttp();
   const queryClient = useQueryClient();
   return useMutation(
@@ -50,9 +58,19 @@ export const useAddProject = () => {
         method: "POST",
         data: params
       }),
-    {
-      onSuccess: () => queryClient.invalidateQueries("projects")
-    }
+    useAddConfig(queryKey)
+  );
+};
+
+export const useDeleteProject = (queryKey: QueryKey) => {
+  const client = useHttp();
+  const queryClient = useQueryClient();
+  return useMutation(
+    (id: number) =>
+      client(`projects/${id}`, {
+        method: "DELETE"
+      }),
+    useDeleteConfig(queryKey)
   );
 };
 
