@@ -26,6 +26,12 @@ export default function ProjectModal() {
       close();
     });
   };
+
+  const closeModal = () => {
+    form.resetFields();
+    close();
+  };
+
   const title = editingProject ? "Edit Project" : "Create Project";
 
   useEffect(() => {
@@ -35,7 +41,7 @@ export default function ProjectModal() {
   return (
     <Drawer
       forceRender={true}
-      onClose={close}
+      onClose={closeModal}
       visible={projectModalOpen}
       width={"100%"}
     >
@@ -88,7 +94,7 @@ export default function ProjectModal() {
           </>
         )}
         <h1>ProjectModal</h1>
-        <Button onClick={close}>close</Button>
+        <Button onClick={closeModal}>close</Button>
       </Container>
     </Drawer>
   );
