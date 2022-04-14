@@ -42,5 +42,60 @@
       "organization": "M Department",
       "created": 1604989757139
     }
+  ],
+  "dashboards": [
+    {
+      "id": 1,
+      "name": "To do",
+      "projectId": 1
+    },
+    {
+      "id": 2,
+      "name": "In Process",
+      "projectId": 1
+    },
+    {
+      "id": 3,
+      "name": "Done",
+      "projectId": 2
+    }
+  ],
+  "tasks": [
+    {
+      "id": 1,
+      "name": "test",
+      "processorId": 1,
+      "projectId": 1,
+      "epicId": 1,
+      "dashboardId": 1,
+      "typeId": 1,
+      "note": "high"
+    },
+    {
+      "id": 2,
+      "name": "debug",
+      "processorId": 2,
+      "projectId": 2,
+      "epicId": 2,
+      "dashboardId": 2,
+      "typeId": 2,
+      "note": "high"
+    },
+    {
+      "id": 3,
+      "name": "deploy",
+      "processorId": 3,
+      "projectId": 3,
+      "epicId": 3,
+      "dashboardId": 3,
+      "typeId": 3,
+      "note": "high"
+    }
+  ],
+  "taskTypes": [
+    {
+      "id": 1,
+      "name": "bug"
+    }
   ]
 }
