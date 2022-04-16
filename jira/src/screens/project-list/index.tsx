@@ -32,7 +32,7 @@ export default function ProjectListScreen() {
   //   client("users").then(setUsers);
   // });
   return (
-    <div>
+    <Container>
       <Row between={true}>
         <h1>Project List</h1>
         <Button onClick={open}>Create new project</Button>
@@ -42,7 +42,7 @@ export default function ProjectListScreen() {
         <Typography.Text type={"danger"}>{error.message}</Typography.Text>
       ) : null}
       <List loading={isLoading} users={users || []} dataSource={list || []} />
-    </div>
+    </Container>
   );
 }
 

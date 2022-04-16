@@ -57,7 +57,7 @@
     {
       "id": 3,
       "name": "Done",
-      "projectId": 2
+      "projectId": 1
     }
   ],
   "tasks": [
@@ -73,6 +73,36 @@
     },
     {
       "id": 2,
+      "name": "develop home page",
+      "processorId": 1,
+      "projectId": 1,
+      "epicId": 1,
+      "dashboardId": 2,
+      "typeId": 2,
+      "note": "high"
+    },
+    {
+      "id": 3,
+      "name": "release",
+      "processorId": 3,
+      "projectId": 1,
+      "epicId": 3,
+      "dashboardId": 3,
+      "typeId": 2,
+      "note": "high"
+    },
+    {
+      "id": 4,
+      "name": "unit test",
+      "processorId": 1,
+      "projectId": 1,
+      "epicId": 1,
+      "dashboardId": 1,
+      "typeId": 1,
+      "note": "high"
+    },
+    {
+      "id": 5,
       "name": "debug",
       "processorId": 2,
       "projectId": 2,
@@ -80,22 +110,16 @@
       "dashboardId": 2,
       "typeId": 2,
       "note": "high"
-    },
-    {
-      "id": 3,
-      "name": "deploy",
-      "processorId": 3,
-      "projectId": 3,
-      "epicId": 3,
-      "dashboardId": 3,
-      "typeId": 3,
-      "note": "high"
     }
   ],
   "taskTypes": [
     {
       "id": 1,
       "name": "bug"
+    },
+    {
+      "id": 2,
+      "name": "code"
     }
   ]
 }

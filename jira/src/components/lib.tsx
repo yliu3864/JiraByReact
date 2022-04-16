@@ -56,3 +56,10 @@ export const ErrorBox = ({ error }: { error?: { message: string } }) => {
   }
   return null;
 };
+
+export const ScreenContainer = styled.div`
+  padding: 3.2 rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;

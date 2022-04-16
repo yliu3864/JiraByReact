@@ -8,9 +8,6 @@ import React from "react";
 const TaskTypesIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
   const name = taskTypes?.find(taskType => taskType.id === id)?.name;
-  if (!name) {
-    return null;
-  }
 
   // return <div>1123</div>;
 

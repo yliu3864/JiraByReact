@@ -4,9 +4,10 @@ import { useTasks } from "utils/task";
 import { BugOutlined, EditOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { Card } from "antd";
+import { useTasksSearchParams } from "./util";
 
 export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
-  const { data: allTasks } = useTasks();
+  const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter(task => task.dashboardId === dashboard.id);
   return (
     <Container>
@@ -15,7 +16,7 @@ export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
         {tasks?.map(task => (
           <Card style={{ marginBottom: "0.5rem" }} key={task.id}>
             <div>{task.name}</div>
-            <BugOutlined />
+            <div>{task.id == 1 ? <BugOutlined /> : <EditOutlined />}</div>
           </Card>
         ))}
       </TasksContainer>
@@ -31,6 +32,7 @@ const Container = styled.div`
   flex-direction: column;
   padding: 0.7rem 0.7rem 1rem;
   margin-right: 1.5rem;
+  padding-top: 20px;
 `;
 
 const TasksContainer = styled.div`

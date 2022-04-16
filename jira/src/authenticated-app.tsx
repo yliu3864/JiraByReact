@@ -45,7 +45,7 @@ export default function AuthenticatedApp() {
 const Container = styled.div`
   display: grid;
   grid-template-rows: 6rem 1fr 6rem;
-  grid-template-columns: 20rem 1fr 20rem;
+  grid-template-columns: 0 1fr 0;
   grid-template-areas:
     "header header header"
     "nav main aside"
@@ -89,6 +89,8 @@ const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;
 const Main = styled.main`
   grid-area: main;
+  display: flex;
+  overflow: hidden;
 `;
 const Nav = styled.nav`
   grid-area: nav;
