@@ -4,6 +4,7 @@ import { Dashboard } from "../types/dashboard";
 import { useTaskTypes } from "./task-type";
 import { BugOutlined, EditOutlined } from "@ant-design/icons";
 import React from "react";
+import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
 
 const TaskTypesIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -19,5 +20,30 @@ export const useDashboards = (param?: Partial<Dashboard>) => {
 
   return useQuery<Dashboard[], Error>(["dashboards", param], () =>
     client("dashboards", { data: param })
+  );
+};
+
+export const useAddDashboard = (queryKey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation(
+    (params: Partial<Dashboard>) =>
+      client(`dashboards`, {
+        method: "POST",
+        data: params
+      }),
+    useAddConfig(queryKey)
+  );
+};
+
+export const useDeleteDashboard = (queryKey: QueryKey) => {
+  const client = useHttp();
+
+  return useMutation(
+    (id: number) =>
+      client(`dashboards/${id}`, {
+        method: "DELETE"
+      }),
+    useDeleteConfig(queryKey)
   );
 };

@@ -19,7 +19,7 @@ export default function SearchPanel() {
   };
 
   return (
-    <Row marginBottom={4} gap={true}>
+    <Row marginBottom={4} gap={true} style={{ paddingBottom: "20px" }}>
       <Input
         style={{ width: "20rem" }}
         placeholder={"name"}

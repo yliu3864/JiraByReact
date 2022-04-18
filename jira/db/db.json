@@ -68,16 +68,6 @@
       "projectId": 1,
       "epicId": 1,
       "dashboardId": 1,
-      "typeId": 1,
-      "note": "high"
-    },
-    {
-      "id": 2,
-      "name": "develop home page",
-      "processorId": 1,
-      "projectId": 1,
-      "epicId": 1,
-      "dashboardId": 2,
       "typeId": 2,
       "note": "high"
     },
@@ -110,6 +100,24 @@
       "dashboardId": 2,
       "typeId": 2,
       "note": "high"
+    },
+    {
+      "projectId": 1,
+      "name": "task manage",
+      "dashboardId": 2,
+      "id": 6
+    },
+    {
+      "projectId": 1,
+      "name": "upload to test",
+      "dashboardId": 1,
+      "id": 7
+    },
+    {
+      "projectId": 1,
+      "name": "fix bug",
+      "dashboardId": 3,
+      "id": 8
     }
   ],
   "taskTypes": [

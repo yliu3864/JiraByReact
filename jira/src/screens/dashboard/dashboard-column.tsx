@@ -3,28 +3,81 @@ import { Dashboard } from "types/dashboard";
 import { useTasks } from "utils/task";
 import { BugOutlined, EditOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
-import { Card } from "antd";
-import { useTasksSearchParams } from "./util";
+import { Card, Dropdown, Button, Menu, Modal } from "antd";
+import {
+  useTasksSearchParams,
+  useTasksModal,
+  useDashboardQueryKey
+} from "./util";
+import { CreateTask } from "screens/dashboard/create-task";
+import { Task } from "types/task";
+import Mark from "components/mark";
+import { useDeleteDashboard } from "utils/dashboard";
+import { Row } from "components/lib";
+
+const TaskCard = ({ task }: { task: Task }) => {
+  const { startEdit } = useTasksModal();
+  const { name: keyword } = useTasksSearchParams();
+  return (
+    <Card
+      onClick={() => startEdit(task.id)}
+      style={{ marginBottom: "0.5rem", cursor: "pointer" }}
+      key={task.id}
+    >
+      <Mark keyword={keyword} name={task.name} />
+      <div>{task.typeId == 1 ? <BugOutlined /> : <EditOutlined />}</div>
+    </Card>
+  );
+};
 
 export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
   const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter(task => task.dashboardId === dashboard.id);
   return (
     <Container>
-      <h3>{dashboard.name}</h3>
+      <Row between={true}>
+        <h3>{dashboard.name}</h3>
+        <More dashboard={dashboard} />
+      </Row>
       <TasksContainer>
         {tasks?.map(task => (
-          <Card style={{ marginBottom: "0.5rem" }} key={task.id}>
-            <div>{task.name}</div>
-            <div>{task.id == 1 ? <BugOutlined /> : <EditOutlined />}</div>
-          </Card>
+          <TaskCard task={task} />
         ))}
+        <CreateTask dashboardId={dashboard.id} />
       </TasksContainer>
     </Container>
   );
 };
 
-const Container = styled.div`
+const More = ({ dashboard }: { dashboard: Dashboard }) => {
+  const { mutateAsync } = useDeleteDashboard(useDashboardQueryKey());
+  const startEdit = () => {
+    Modal.confirm({
+      okText: "Yes",
+      cancelText: "No",
+      title: "Confirm",
+      onOk() {
+        return mutateAsync(dashboard.id);
+      }
+    });
+  };
+  const overlay = (
+    <Menu>
+      <Menu.Item>
+        <Button type={"link"} onClick={startEdit}>
+          delete
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+  return (
+    <Dropdown overlay={overlay}>
+      <Button type={"link"}>...</Button>
+    </Dropdown>
+  );
+};
+
+export const Container = styled.div`
   min-width: 27rem;
   border-radius: 6px;
   background-color: rgb(244, 245, 247);
