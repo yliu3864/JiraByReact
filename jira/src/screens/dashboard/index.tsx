@@ -14,6 +14,8 @@ import { useTasks } from "utils/task";
 import { Spin } from "antd";
 import { CreateDashboard } from "screens/dashboard/create-dashboard";
 import TaskModal from "./task-modal";
+import { DragDropContext } from "react-beautiful-dnd";
+import { DropChild, Drag, Drop } from "components/drag-and-drop";
 
 export default function DashboardScreen() {
   useDocumentTitle("Dashboard");
@@ -26,25 +28,39 @@ export default function DashboardScreen() {
   const isLoading = taskIsLoading || dashboardIsLoading;
 
   return (
-    <ScreenContainer>
-      <h1>{currentProject?.name} dashboard</h1>
-      <SearchPanel />
-      {isLoading ? (
-        <Spin size={"large"} />
-      ) : (
-        <DoashboardContainer>
-          {dashboards?.map(dashboard => (
-            <DashboardColumn dashboard={dashboard} key={dashboard.id} />
-          ))}
-          <CreateDashboard />
-        </DoashboardContainer>
-      )}
-      <TaskModal />
-    </ScreenContainer>
+    <DragDropContext onDragEnd={() => {}}>
+      <ScreenContainer>
+        <h1>{currentProject?.name} dashboard</h1>
+        <SearchPanel />
+        {isLoading ? (
+          <Spin size={"large"} />
+        ) : (
+          <Drop
+            type={"COLUMN"}
+            direction={"horizontal"}
+            droppableId={"dashboard"}
+          >
+            <DoashboardContainer>
+              {dashboards?.map((dashboard, index) => (
+                <Drag
+                  key={dashboard.id}
+                  draggableId={"dashboard" + dashboard.id}
+                  index={index}
+                >
+                  <DashboardColumn dashboard={dashboard} key={dashboard.id} />
+                </Drag>
+              ))}
+              <CreateDashboard />
+            </DoashboardContainer>
+          </Drop>
+        )}
+        <TaskModal />
+      </ScreenContainer>
+    </DragDropContext>
   );
 }
 
-export const DoashboardContainer = styled.div`
+export const DoashboardContainer = styled(DropChild)`
   display: flex;
   overflow-x: scroll;
   flex: 1;

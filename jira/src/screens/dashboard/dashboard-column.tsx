@@ -30,24 +30,27 @@ const TaskCard = ({ task }: { task: Task }) => {
   );
 };
 
-export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
+export const DashboardColumn = React.forwardRef<
+  HTMLDivElement,
+  { dashboard: Dashboard }
+>(({ dashboard, ...props }, ref) => {
   const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter(task => task.dashboardId === dashboard.id);
   return (
-    <Container>
+    <Container {...props} ref={ref}>
       <Row between={true}>
         <h3>{dashboard.name}</h3>
-        <More dashboard={dashboard} />
+        <More dashboard={dashboard} key={dashboard.id} />
       </Row>
       <TasksContainer>
         {tasks?.map(task => (
-          <TaskCard task={task} />
+          <TaskCard task={task} key={task.id} />
         ))}
         <CreateTask dashboardId={dashboard.id} />
       </TasksContainer>
     </Container>
   );
-};
+});
 
 const More = ({ dashboard }: { dashboard: Dashboard }) => {
   const { mutateAsync } = useDeleteDashboard(useDashboardQueryKey());
