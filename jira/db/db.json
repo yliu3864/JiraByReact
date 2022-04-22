@@ -129,5 +129,42 @@
       "id": 2,
       "name": "code"
     }
+  ],
+  "epics": [
+    {
+      "id": 1,
+      "name": "develop",
+      "projectId": 1,
+      "start": 1604989757139,
+      "end": 1604989757139
+    },
+    {
+      "id": 2,
+      "name": "code",
+      "projectId": 1,
+      "start": 1604989757139,
+      "end": 1604989757139
+    },
+    {
+      "name": "asdasasd",
+      "id": 3
+    },
+    {
+      "name": "dasdasdasdasd",
+      "id": 4
+    },
+    {
+      "name": "asdas",
+      "id": 5
+    },
+    {
+      "name": "dasdasd",
+      "id": 6
+    },
+    {
+      "name": "asdas",
+      "projectId": 1,
+      "id": 7
+    }
   ]
 }

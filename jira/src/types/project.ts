@@ -1,5 +1,5 @@
 export interface Project {
-  id: string;
+  id: number;
   name: string;
   personId: number;
   pin: boolean;
