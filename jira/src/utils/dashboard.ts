@@ -4,7 +4,11 @@ import { Dashboard } from "../types/dashboard";
 import { useTaskTypes } from "./task-type";
 import { BugOutlined, EditOutlined } from "@ant-design/icons";
 import React from "react";
-import { useAddConfig, useDeleteConfig } from "./use-optimistic-options";
+import {
+  useAddConfig,
+  useDeleteConfig,
+  useReorderConfig
+} from "./use-optimistic-options";
 
 const TaskTypesIcon = ({ id }: { id: number }) => {
   const { data: taskTypes } = useTaskTypes();
@@ -46,4 +50,22 @@ export const useDeleteDashboard = (queryKey: QueryKey) => {
       }),
     useDeleteConfig(queryKey)
   );
+};
+
+export interface SortProps {
+  fromId: number;
+  referenceId: number;
+  type: "before" | "after";
+  fromDashboardId?: number;
+  toDashboardId?: number;
+}
+
+export const useReorderDashboard = (queryKey: QueryKey) => {
+  const client = useHttp();
+  return useMutation((params: SortProps) => {
+    return client("dashboards/reorder", {
+      data: params,
+      method: "POST"
+    });
+  }, useReorderConfig(queryKey));
 };

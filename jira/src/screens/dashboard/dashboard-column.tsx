@@ -14,6 +14,7 @@ import { Task } from "types/task";
 import Mark from "components/mark";
 import { useDeleteDashboard } from "utils/dashboard";
 import { Row } from "components/lib";
+import { Drop, DropChild, Drag } from "components/drag-and-drop";
 
 const TaskCard = ({ task }: { task: Task }) => {
   const { startEdit } = useTasksModal();
@@ -43,9 +44,25 @@ export const DashboardColumn = React.forwardRef<
         <More dashboard={dashboard} key={dashboard.id} />
       </Row>
       <TasksContainer>
-        {tasks?.map(task => (
-          <TaskCard task={task} key={task.id} />
-        ))}
+        <Drop
+          type={"ROW"}
+          direction={"vertical"}
+          droppableId={String(dashboard.id)}
+        >
+          <DropChild>
+            {tasks?.map((task, taskIndex) => (
+              <Drag
+                key={task.id}
+                index={taskIndex}
+                draggableId={"task" + task.id}
+              >
+                <div>
+                  <TaskCard task={task} key={task.id} />
+                </div>
+              </Drag>
+            ))}
+          </DropChild>
+        </Drop>
         <CreateTask dashboardId={dashboard.id} />
       </TasksContainer>
     </Container>
